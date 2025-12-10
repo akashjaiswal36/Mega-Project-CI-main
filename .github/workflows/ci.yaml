@@ -83,11 +83,11 @@ jobs:
       # Update Manifest File in Mega-Project-CD
       - name: Update Manifest Repo
         run: |
-          git clone https://github.com/akashjaiswal36/Mega-Project-CD-main.git
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/akashjaiswal36/Mega-Project-CD-main.git
           cd Mega-Project-CD-main
           sed -i "s|ajs3ra8/bankapp101225:.*|ajs3ra8/bankapp101225:${IMAGE_TAG}|" Manifest/manifest.yaml
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add Manifest/manifest.yaml
-          git commit -m "Update image tag to ${IMAGE_TAG}"
-          git push https://${{ secrets.GIT_USER }}:${{ secrets.GIT_TOKEN }}@github.com/akashjaiswal36/Mega-Project-CD-main.git main
+          git commit -m "Update image tag to ${IMAGE_TAG}" || echo "No changes to commit"
+          git push origin main
