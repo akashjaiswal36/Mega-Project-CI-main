@@ -50,7 +50,7 @@ jobs:
             -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
             -Dsonar.projectName=${{ env.SONAR_PROJECT_NAME }}
             -Dsonar.java.binaries=target
-            -Dsonar.organization="akashjaiswal36" 
+            -Dsonar.organization=akashjaiswal36
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
