@@ -84,7 +84,7 @@ jobs:
       - name: Update Manifest Repo
         run: |
           git clone https://github.com/akashjaiswal36/Mega-Project-CD-main.git
-          cd Mega-Project-CD
+          cd Mega-Project-CD-main
           sed -i "s|ajs3ra8/bankapp101225:.*|ajs3ra8/bankapp101225:${IMAGE_TAG}|" Manifest/manifest.yaml
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
