@@ -82,9 +82,11 @@ jobs:
 
       # Update Manifest File in Mega-Project-CD
       - name: Update Manifest Repo
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           # Clone using PAT
-          git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/akashjaiswal36/Mega-Project-CD-main.git
+          git clone https://x-access-token:${GH_PAT}@github.com/akashjaiswal36/Mega-Project-CD-main.git
           cd Mega-Project-CD-main
 
           # Update manifest
@@ -95,7 +97,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           # Force remote to use PAT for push
-          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/akashjaiswal36/Mega-Project-CD-main.git
+          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/akashjaiswal36/Mega-Project-CD-main.git
 
           # Commit + push
           git add Manifest/manifest.yaml
