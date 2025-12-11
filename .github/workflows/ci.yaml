@@ -84,6 +84,7 @@ jobs:
       - name: Update Manifest Repo
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
+          IMAGE_TAG: ${{ env.IMAGE_TAG }}
         run: |
           # Clone using PAT
           git clone https://x-access-token:${GH_PAT}@github.com/akashjaiswal36/Mega-Project-CD-main.git
