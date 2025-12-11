@@ -110,25 +110,3 @@ jobs:
           git commit -m "Update image tag to ${IMAGE_TAG}" || echo "No changes to commit"
           git push origin main
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build   # or needs: update-manifest if separate job
-
-    steps:
-      - name: Checkout CD repo
-        uses: actions/checkout@v4
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1   # your region
-
-      - name: Update kubeconfig
-        run: |
-          aws eks update-kubeconfig --name EKS-cluster-terraform --region ap-south-1
-
-      - name: Deploy to EKS
-        run: |
-          kubectl apply -f Manifest/
