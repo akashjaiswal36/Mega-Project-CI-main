@@ -80,7 +80,10 @@ jobs:
           echo "${{ secrets.DOCKER_PASS }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
           docker push ajs3ra8/bankapp101225:${{ env.IMAGE_TAG }}
 
-      # Update Manifest File in Mega-Project-CD
+      - name: Disable GitHub Actions default credentials
+        run: |
+          git config --global --unset-all credential.helper || true
+
       - name: Update Manifest Repo
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
