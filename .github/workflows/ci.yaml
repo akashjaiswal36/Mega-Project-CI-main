@@ -83,11 +83,21 @@ jobs:
       # Update Manifest File in Mega-Project-CD
       - name: Update Manifest Repo
         run: |
-          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/akashjaiswal36/Mega-Project-CD-main.git
+          # Clone using PAT
+          git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/akashjaiswal36/Mega-Project-CD-main.git
           cd Mega-Project-CD-main
+
+          # Update manifest
           sed -i "s|ajs3ra8/bankapp101225:.*|ajs3ra8/bankapp101225:${IMAGE_TAG}|" Manifest/manifest.yaml
+
+          # Configure Git identity
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Force remote to use PAT for push
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/akashjaiswal36/Mega-Project-CD-main.git
+
+          # Commit + push
           git add Manifest/manifest.yaml
           git commit -m "Update image tag to ${IMAGE_TAG}" || echo "No changes to commit"
           git push origin main
