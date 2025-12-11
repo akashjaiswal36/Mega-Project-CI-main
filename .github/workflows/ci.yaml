@@ -80,9 +80,11 @@ jobs:
           echo "${{ secrets.DOCKER_PASS }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
           docker push ajs3ra8/bankapp101225:${{ env.IMAGE_TAG }}
 
-      - name: Disable GitHub Actions default credentials
+      - name: Remove GitHub Actions default credentials
         run: |
           git config --global --unset-all credential.helper || true
+          git config --system --unset credential.helper || true
+
 
       - name: Update Manifest Repo
         env:
